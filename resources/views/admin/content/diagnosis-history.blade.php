@@ -15,7 +15,7 @@
                 <div class="card-sub">
                     This is <b>Dempster-Shafer</b> diagnostic history
                 </div>
-                <table class="display" id="diagds_table">
+                <table class="display table-responsive" id="diagds_table">
                     <thead>
                         <tr>
                             <th scope="col">Numb.</th>
@@ -76,7 +76,6 @@
 @push('script')
 
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
 <script>
     let diagdsTable = $('#diagds');

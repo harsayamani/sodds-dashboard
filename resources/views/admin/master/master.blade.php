@@ -11,9 +11,11 @@
 	<div class="wrapper">
 		<div class="main-header">
 			<div class="logo-header">
-				<a href="index.html" class="logo">
-					SODDS Dashboard
-				</a>
+				<center>
+                <a href="/admin/dashboard" class="logo">
+                    <img src="/admin-template/assets/img/sodds.png" width="100px">
+                </a>
+                </center>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -127,19 +129,19 @@
 								<p>Manage Evidence</p>
 							</a>
 						</li>
-                        <li class="nav-item @yield('is_active4')">
+                        <li class="nav-item @yield('is_active5')">
 							<a href="/admin/manage/disease">
 								<i class="la la-cog"></i>
 								<p>Manage Disease</p>
 							</a>
 						</li>
-                        <li class="nav-item @yield('is_active5')">
+                        <li class="nav-item @yield('is_active6')">
 							<a href="/admin/manage/rules-ds">
 								<i class="la la-cog"></i>
 								<p>Manage Rules DS</p>
 							</a>
 						</li>
-                        <li class="nav-item @yield('is_active6')">
+                        <li class="nav-item @yield('is_active7')">
 							<a href="/admin/manage/rules-cf">
 								<i class="la la-cog"></i>
 								<p>Manage Rules CF</p>
@@ -151,6 +153,23 @@
 			<div class="main-panel">
 				<div class="content">
 					<div class="container-fluid">
+                        @if (session()->has('alert-success'))
+                            <input type = "text" id="alert" value = "{{session()->get('alert-success')}}" hidden>
+                            <input type = "text" id="state" value = "success" hidden>
+                            <input type = "text" id="title" value = "SODDS Notify" hidden>
+                        @elseif (session()->has('alert-danger'))
+                            <input type = "text" id="alert" value = "{{session()->get('alert-danger')}}" hidden>
+                            <input type = "text" id="state" value = "danger" hidden>
+                            <input type = "text" id="title" value = "SODDS Notify" hidden>
+                        @elseif (session()->has('alert-warning'))
+                            <input type = "text" id="alert" value = "{{session()->get('alert-warning')}}" hidden>
+                            <input type = "text" id="state" value = "warning" hidden>
+                            <input type = "text" id="title" value = "SODDS Notify" hidden>
+                        @else
+                            <input type = "text" id="alert" value = "null" hidden>
+                            <input type = "text" id="state" value = "null" hidden>
+                            <input type = "text" id="title" value = "null" hidden>
+                        @endif
 						<h4 class="page-title">@yield('page_title')</h4>
 						@yield('content')
 					</div>
@@ -170,5 +189,69 @@
 	</div>
 </body>
 @include('admin.script.script')
-@yield('adding_script')
+<script>
+    let message = document.getElementById('alert').value;
+    let state = document.getElementById('state').value;
+    let title = document.getElementById('title').value;
+    console.log(message);
+    console.log(state);
+
+    notificationAlert(title, message, state);
+
+    var pusher = new Pusher('9cc252851cc7a8311c0c', {
+      cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('diagnosis');
+    channel.bind('diagnosis-added', function(data) {
+        console.log(data)
+        title = 'Diagnosis Success';
+        state = 'primary';
+        message = `
+            Disease : ${data.max_bel}<br>
+            Belief : ${data.max_bel_weight}
+            <p><b>Just Now!</b></p>
+        `;
+        notificationAlert(title, message, state);
+    });
+
+    channel.bind('diagnosiscf-added', function(data) {
+        console.log(data)
+        console.log(data)
+        title = 'Diagnosis Success';
+        state = 'primary';
+        message = `
+            Disease : ${data.disease}<br>
+            Percentage : ${data.cf_persen}
+            <p><b>Just Now!</b></p>
+        `;
+        notificationAlert(title, message, state);
+    });
+
+    function notificationAlert(title, message, state) {
+        var placementFrom = 'top';
+        var placementAlign = 'right';
+        // var state = 'success';
+        var style = 'withicon';
+        var content = {};
+
+        content.message = message;
+        content.title = title;
+        if (style == "withicon") {
+            content.icon = 'la la-bell';
+        } else {
+            content.icon = 'none';
+        }
+        content.target = '_blank';
+
+        $.notify(content,{
+            type: state,
+            placement: {
+                from: placementFrom,
+                align: placementAlign
+            },
+            time: 1000,
+        });
+    }
+</script>
 </html>

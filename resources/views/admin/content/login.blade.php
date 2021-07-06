@@ -32,28 +32,27 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-b-160 p-t-50">
+                @if (session()->has('alert-success'))
+                    <div class="alert alert-success" role="alert">
+                        {{session()->get('alert-success')}}
+                    </div>
+                @endif
+
+                @if (session()->has('alert-danger'))
+                    <div class="alert alert-danger" role="alert">
+                        {{session()->get('alert-danger')}}
+                    </div>
+                @endif
+
+                @if (session()->has('alert-warning'))
+                    <div class="alert alert-warning" role="alert">
+                        {{session()->get('alert-warning')}}
+                    </div>
+                @endif
 				<form autocomplete="off" class="login100-form validate-form" method="POST" action="/admin/login/process">
 					<span class="login100-form-title p-b-43">
 						SODDS Admin Login
 					</span>
-
-                    @if (session()->has('alert-success'))
-                        <div class="alert alert-success" role="alert">
-                            {{session()->get('alert-success')}}
-                        </div>
-                    @endif
-
-                    @if (session()->has('alert-danger'))
-                        <div class="alert alert-danger" role="alert">
-                            {{session()->get('alert-danger')}}
-                        </div>
-                    @endif
-
-                    @if (session()->has('alert-warning'))
-                        <div class="alert alert-warning" role="alert">
-                            {{session()->get('alert-warning')}}
-                        </div>
-                    @endif
 
                     {{ csrf_field() }}
 

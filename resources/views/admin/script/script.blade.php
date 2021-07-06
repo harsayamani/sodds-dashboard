@@ -4,10 +4,12 @@
 <script src="/admin-template/assets/js/core/bootstrap.min.js"></script>
 <script src="/admin-template/assets/js/plugin/chartist/chartist.min.js"></script>
 <script src="/admin-template/assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+<script src="/admin-template/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
 <script src="/admin-template/assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 <script src="/admin-template/assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
 <script src="/admin-template/assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
 <script src="/admin-template/assets/js/plugin/chart-circle/circles.min.js"></script>
 <script src="/admin-template/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <script src="/admin-template/assets/js/ready.min.js"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 @stack('script')
