@@ -17,7 +17,11 @@ class DiagnosisController extends Controller
             ->asJson()
             ->get();
 
-        $evidences = $evidences->data;
+        if($evidences->err) {
+            $evidences = [];
+        }else {
+            $evidences = $evidences->data;
+        }
 
         return view('admin.content.diagnosis-test', compact('evidences'));
     }

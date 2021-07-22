@@ -1,4 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Login | SODDS Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/admin-template/login/css/style.css">
+
+	</head>
+	<body>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-7 col-lg-5">
+						<div class="login-wrap p-4 p-md-5">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <img src="/admin-template/assets/img/sodds.png" width="150px">
+                            </div>
+                            <h3 class="text-center mb-4">Sign In</h3>
+                            @if (session()->has('alert-success'))
+                                <div class="alert alert-success" role="alert">
+                                    {{session()->get('alert-success')}}
+                                </div>
+                            @endif
+
+                            @if (session()->has('alert-danger'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{session()->get('alert-danger')}}
+                                </div>
+                            @endif
+
+                            @if (session()->has('alert-warning'))
+                                <div class="alert alert-warning" role="alert">
+                                    {{session()->get('alert-warning')}}
+                                </div>
+                            @endif
+                            <form autocomplete="off" method="POST" action="/admin/login/process" class="login-form">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <input type="text" class="form-control rounded-left" placeholder="Enter username" name="username" required>
+                                </div>
+                                <div class="form-group d-flex">
+                                <input type="password" class="form-control rounded-left" placeholder="Enter password" name="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+                                </div>
+                            </form>
+				        </div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<script src="/admin-template/login/js/jquery.min.js"></script>
+		<script src="/admin-template/login/js/popper.js"></script>
+		<script src="/admin-template/login/js/bootstrap.min.js"></script>
+		<script src="/admin-template/login/js/main.js"></script>
+	</body>
+</html>
+
+
+
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Login | SODDS Admin </title>
@@ -95,4 +161,4 @@
 	<script src="/admin-template/login/js/main.js"></script>
 
 </body>
-</html>
+</html> --}}

@@ -19,7 +19,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Numb.</th>
-                            <th scope="col">Disease Code</th>
+                            <th scope="col">Disease</th>
                             <th scope="col">Belief Weight</th>
                             <th scope="col">Created At</th>
                         </tr>
@@ -52,7 +52,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Numb.</th>
-                            <th scope="col">Disease Code</th>
+                            <th scope="col">Disease</th>
                             <th scope="col">Confidence Level</th>
                             <th scope="col">Created At</th>
                         </tr>
@@ -99,7 +99,7 @@
 
                 datatableDiagds.row.add([
                     x,
-                    res[i].max_bel,
+                    res[i].disease_result.disease,
                     weight.toFixed(3),
                     dateObj,
                 ]).draw();

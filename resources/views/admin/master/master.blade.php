@@ -24,7 +24,7 @@
 			<nav class="navbar navbar-header navbar-expand-lg">
 				<div class="container-fluid">
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<li class="nav-item dropdown hidden-caret">
+						{{-- <li class="nav-item dropdown hidden-caret">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="la la-bell"></i>
 								<span class="notification">3</span>
@@ -50,7 +50,7 @@
 									<a class="see-all" href="/admin/diagnosis/history"> <strong>See all notifications</strong> <i class="la la-angle-right"></i> </a>
 								</li>
 							</ul>
-						</li>
+						</li> --}}
 						<li class="nav-item dropdown">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"><span>{{Session::get('name')}}</span></span> </a>
 							<ul class="dropdown-menu dropdown-user">
@@ -157,6 +157,10 @@
                             <input type = "text" id="alert" value = "{{session()->get('alert-success')}}" hidden>
                             <input type = "text" id="state" value = "success" hidden>
                             <input type = "text" id="title" value = "SODDS Notify" hidden>
+                        @elseif ($errors->any())
+                            <input type = "text" id="alert" value = "{{$errors->all()[0]}}" hidden>
+                            <input type = "text" id="state" value = "danger" hidden>
+                            <input type = "text" id="title" value = "SODDS Notify" hidden>
                         @elseif (session()->has('alert-danger'))
                             <input type = "text" id="alert" value = "{{session()->get('alert-danger')}}" hidden>
                             <input type = "text" id="state" value = "danger" hidden>
@@ -196,7 +200,9 @@
     console.log(message);
     console.log(state);
 
-    notificationAlert(title, message, state);
+    if(state !== 'null') {
+        notificationAlert(title, message, state);
+    }
 
     var pusher = new Pusher('9cc252851cc7a8311c0c', {
       cluster: 'ap1'
@@ -208,7 +214,7 @@
         title = 'Diagnosis Success';
         state = 'primary';
         message = `
-            Disease : ${data.max_bel}<br>
+            Disease : ${data.disease_result.disease}<br>
             Belief : ${data.max_bel_weight}
             <p><b>Just Now!</b></p>
         `;

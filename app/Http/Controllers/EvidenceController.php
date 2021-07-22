@@ -13,18 +13,88 @@ class EvidenceController extends Controller
             return redirect('/admin/login')->with('alert-danger', 'You must login firstly!');
         }
 
-        $evidences = [];
+        $evidences = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/get-all-evidence')
+        ->asJson()
+        ->get();
 
-        try {
-            $evidences = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/get-all-evidence')
-            ->asJson()
-            ->get();
-
-            $evidences = $evidences->data;
-        }catch(Exception $e) {
+        if($evidences->err) {
             $evidences = [];
+        }else {
+            $evidences = $evidences->data;
         }
 
         return view('admin.content.manage-evidence', compact('evidences'));
+    }
+
+    public function addEvidence(Request $request) {
+        if(!Session::get('loginAdmin')) {
+            return redirect('/admin/login')->with('alert-danger', 'You must login firstly!');
+        }
+
+        $evidences = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/get-all-evidence')
+        ->asJson()
+        ->get();
+
+        if($evidences->err) {
+            $evidences = [];
+        }else {
+            $evidences = $evidences->data;
+        }
+
+        $code = 'G'.(count($evidences)+1);
+        $evidence = $request->evidence;
+
+        $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/add-evidence')
+        ->withData( ['code' => $code, 'evidence' => $evidence] )
+        ->asJson()
+        ->post();
+
+
+        if($result->err){
+            return \redirect()->back()->with('alert-danger', $result->message);
+        }
+
+        return \redirect()->back()->with('alert-success', $result->message);
+    }
+
+    public function updateEvidence(Request $request) {
+        if(!Session::get('loginAdmin')) {
+            return redirect('/admin/login')->with('alert-danger', 'You must login firstly!');
+        }
+
+        $id = $request->id;
+        $code = $request->code;
+        $evidence = $request->evidence;
+
+        $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/update/'.$id)
+        ->withData( ['code' => $code, 'evidence' => $evidence] )
+        ->asJson()
+        ->put();
+
+
+        if($result->err){
+            return \redirect()->back()->with('alert-danger', $result->message);
+        }
+
+        return \redirect()->back()->with('alert-success', $result->message);
+    }
+
+    public function deleteEvidence(Request $request) {
+        if(!Session::get('loginAdmin')) {
+            return redirect('/admin/login')->with('alert-danger', 'You must login firstly!');
+        }
+
+        $id = $request->id;
+
+        $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/delete/'.$id)
+        ->asJson()
+        ->delete();
+
+
+        if($result->err){
+            return \redirect()->back()->with('alert-danger', $result->message);
+        }
+
+        return \redirect()->back()->with('alert-success', $result->message);
     }
 }

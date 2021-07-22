@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Ixudra\Curl\Facades\Curl;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -58,6 +59,51 @@ class AdminController extends Controller
         }
     }
 
+    //Change password
+    public function changePassword(){
+        if(! Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert-danger', 'You must login firstly!');
+        }
+
+        return \view('admin.content.change-password');
+    }
+
+    public function changePasswordProcess(Request $request){
+        if(! Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert-danger', 'You must login firstly!');
+        }
+
+        $this->validate($request,  [
+            'old_pass' => 'min:8',
+            'new_pass' => 'min:8',
+            'reold_pass' => 'min:8',
+            'renew_pass' => 'min:8'
+        ]);
+
+        $oldPass = $request->old_pass;
+        $newPass = $request->new_pass;
+        $reOldPass = $request->reold_pass;
+        $reNewPass = $request->renew_pass;
+        $username = Session::get('username');
+
+        $admin = Admin::where('username', $username)->first();
+        if(Hash::check($oldPass, $admin->password)) {
+            if($oldPass == $reOldPass) {
+                if($newPass == $reNewPass) {
+                    $admin->password = $newPass;
+                    $admin->save();
+                    return redirect()->back()->with('alert-success', 'Change password success');
+                }else{
+                    return redirect()->back()->with('alert-danger', 'New pass not match');
+                }
+            }else{
+                return redirect()->back()->with('alert-danger', 'Old pass not match');
+            }
+        }else{
+            return redirect()->back()->with('alert-danger', 'Old pass not found');
+        }
+    }
+
     //Dasboard Index
     public function dashboard(){
         if(! Session::get('loginAdmin')){
@@ -67,25 +113,41 @@ class AdminController extends Controller
             ->asJson()
             ->get();
 
-            $evidences = $evidences->data;
+            if($evidences->err) {
+                $evidences = [];
+            }else {
+                $evidences = $evidences->data;
+            }
 
             $diseases = Curl::to('https://sodds-app.herokuapp.com/api/v1/disease/get-all-disease')
             ->asJson()
             ->get();
 
-            $diseases = $diseases->data;
+            if($diseases->err) {
+                $diseases = [];
+            }else {
+                $diseases = $diseases->data;
+            }
 
             $diagds = Curl::to('https://sodds-app.herokuapp.com/api/v1/diagnosys/get-all-diagds')
             ->asJson()
             ->get();
 
-            $diagds = $diagds->data;
+            if($diagds->err) {
+                $diagds = [];
+            }else {
+                $diagds = $diagds->data;
+            }
 
             $diagcf = Curl::to('https://sodds-app.herokuapp.com/api/v1/diagnosys/get-all-diagcf')
             ->asJson()
             ->get();
 
-            $diagcf = $diagcf->data;
+            if($diagcf->err) {
+                $diagcf = [];
+            }else {
+                $diagcf = $diagcf->data;
+            }
 
             return view('admin.content.dashboard', compact('evidences', 'diseases', 'diagds', 'diagcf'));
         }

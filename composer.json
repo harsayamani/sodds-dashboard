@@ -10,8 +10,10 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "ixudra/curl": "^6.21",
+        "jenssegers/mongodb": "^3.8",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "mongodb/mongodb": "^1.9",
         "pusher/pusher-php-server": "^7.0"
     },
     "require-dev": {
