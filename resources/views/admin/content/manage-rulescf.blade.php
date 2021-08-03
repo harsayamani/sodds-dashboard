@@ -255,7 +255,13 @@
 
 <script>
     axios.get(
-			BASE_URL+'/api/v1/rulecf/get-all-rule'
+			BASE_URL+'/api/v1/rulecf/get-all-rule',
+            {
+                auth: {
+                    username: 'sodds',
+                    password: '12345678',
+                },
+            }
 		).then((response)=>{
 			let rules = response.data.data;
 			let x = 0;

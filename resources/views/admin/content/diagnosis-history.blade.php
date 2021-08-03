@@ -89,7 +89,6 @@
         type:"GET",
         dataType: "json",
         success: function(res) {
-            console.log(res);
             let x = 0;
             res = res.reverse();
             for(let i=0; i<res.length; i++) {
@@ -116,7 +115,6 @@
         type:"GET",
         dataType: "json",
         success: function(res) {
-            console.log(res);
             let x = 0;
             res = res.reverse();
             for(let i=0; i<res.length; i++) {
@@ -143,14 +141,12 @@
 
     var channel = pusher.subscribe('diagnosis');
     channel.bind('diagnosis-added', function(data) {
-        console.log(data)
         datatableDiagds.clear().draw();
         $.ajax({
             url: "/admin/diagnosis/history/get-all-diagds",
             type:"GET",
             dataType: "json",
             success: function(res) {
-                console.log(res);
                 let x = 0;
                 res = res.reverse();
                 for(let i=0; i<res.length; i++) {
@@ -170,14 +166,12 @@
     });
 
     channel.bind('diagnosiscf-added', function(data) {
-        console.log(data)
         datatableDiagcf.clear().draw();
         $.ajax({
             url: "/admin/diagnosis/history/get-all-diagcf",
             type:"GET",
             dataType: "json",
             success: function(res) {
-                console.log(res);
                 let x = 0;
                 res = res.reverse();
                 for(let i=0; i<res.length; i++) {

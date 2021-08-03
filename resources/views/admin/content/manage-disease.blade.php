@@ -255,7 +255,13 @@
 
 <script>
     axios.get(
-			BASE_URL+'/api/v1/disease/get-all-disease'
+			BASE_URL+'/api/v1/disease/get-all-disease',
+            {
+                auth: {
+                    username: 'sodds',
+                    password: '12345678',
+                },
+            }
 		).then((response)=>{
 			let diseases = response.data.data;
 			let x = 0;

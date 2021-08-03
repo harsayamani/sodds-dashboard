@@ -14,6 +14,7 @@ class EvidenceController extends Controller
         }
 
         $evidences = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/get-all-evidence')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -32,6 +33,7 @@ class EvidenceController extends Controller
         }
 
         $evidences = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/get-all-evidence')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -45,6 +47,7 @@ class EvidenceController extends Controller
         $evidence = $request->evidence;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/add-evidence')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->withData( ['code' => $code, 'evidence' => $evidence] )
         ->asJson()
         ->post();
@@ -67,6 +70,7 @@ class EvidenceController extends Controller
         $evidence = $request->evidence;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/update/'.$id)
+        ->withOption('USERPWD', 'sodds:12345678')
         ->withData( ['code' => $code, 'evidence' => $evidence] )
         ->asJson()
         ->put();
@@ -87,6 +91,7 @@ class EvidenceController extends Controller
         $id = $request->id;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/delete/'.$id)
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->delete();
 

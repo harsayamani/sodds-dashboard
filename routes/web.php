@@ -28,6 +28,8 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
 Route::get('/admin/logout', [AdminController::class, 'logout']);
 Route::get('/admin/change-password', [AdminController::class, 'changePassword']);
 Route::post('/admin/change-password/process', [AdminController::class, 'changePasswordProcess']);
+Route::get('/admin/account-settings', [AdminController::class, 'accountSettings']);
+Route::post('/admin/account-settings/update', [AdminController::class, 'accountSettingsUpdate']);
 
 Route::get('/admin/diagnosis/test', [DiagnosisController::class, 'diagnosisTest']);
 Route::get('/admin/diagnosis/history', [DiagnosisController::class, 'diagnosisHistory']);
@@ -35,8 +37,10 @@ Route::get('/admin/diagnosis/history/get-all-diagds', [DiagnosisController::clas
 Route::get('/admin/diagnosis/history/get-all-diagcf', [DiagnosisController::class, 'diagCFHistory']);
 Route::get('/admin/diagnosis/history', [DiagnosisController::class, 'diagnosisHistory']);
 Route::post('/admin/diagnosis/process', [DiagnosisController::class, 'diagnosisProcess']);
+Route::post('/admin/diagnosis2/process', [DiagnosisController::class, 'diagnosisProcess2']);
 Route::post('/admin/diagnosiscf/process', [DiagnosisController::class, 'diagnosiscfProcess']);
 Route::post('/admin/evidence/get-evidence', [DiagnosisController::class, 'getEvidence']);
+Route::post('/admin/disease/get-disease', [DiagnosisController::class, 'getDisease']);
 
 Route::get('/admin/manage/evidence', [EvidenceController::class, 'manageEvidence']);
 Route::post('/admin/manage/evidence/add', [EvidenceController::class, 'addEvidence']);

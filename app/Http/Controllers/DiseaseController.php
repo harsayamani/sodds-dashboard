@@ -14,6 +14,7 @@ class DiseaseController extends Controller
         }
 
         $diseases = Curl::to('https://sodds-app.herokuapp.com/api/v1/disease/get-all-disease')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -32,6 +33,7 @@ class DiseaseController extends Controller
         }
 
         $diseases = Curl::to('https://sodds-app.herokuapp.com/api/v1/disease/get-all-disease')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -52,6 +54,7 @@ class DiseaseController extends Controller
         $treatment = $request->treatment;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/disease/add')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->withData( ['code' => $code, 'disease' => $disease, 'desc' => $desc, 'treatment' => $treatment] )
         ->asJson()
         ->post();
@@ -76,6 +79,7 @@ class DiseaseController extends Controller
         $treatment = $request->treatment;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/disease/update/'.$id)
+        ->withOption('USERPWD', 'sodds:12345678')
         ->withData( ['code' => $code, 'disease' => $disease, 'desc' => $desc, 'treatment' => $treatment] )
         ->asJson()
         ->put();
@@ -96,9 +100,9 @@ class DiseaseController extends Controller
         $id = $request->id;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/disease/delete/'.$id)
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->delete();
-
 
         if($result->err){
             return \redirect()->back()->with('alert-danger', $result->message);

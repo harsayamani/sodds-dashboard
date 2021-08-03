@@ -85,7 +85,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header bg-warning">
-                <h6 class="modal-title"><i class="la la-edit"></i> Update Ruleds</h6>
+                <h6 class="modal-title"><i class="la la-edit"></i> Update Rule DS</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -248,7 +248,13 @@
 
 <script>
     axios.get(
-			BASE_URL+'/api/v1/rule/get-all-rule'
+			BASE_URL+'/api/v1/rule/get-all-rule',
+            {
+                auth: {
+                    username: 'sodds',
+                    password: '12345678',
+                },
+            }
 		).then((response)=>{
 			let rules = response.data.data;
 			let x = 0;

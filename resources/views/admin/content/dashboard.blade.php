@@ -218,7 +218,6 @@
         type:"GET",
         dataType: "json",
         success: function(res) {
-            console.log(res);
 
             for(let i=0; i<res.length; i++) {
                 let date = new Date(res[i].created_at).toLocaleDateString("en-US");

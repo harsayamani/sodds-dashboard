@@ -197,8 +197,6 @@
     let message = document.getElementById('alert').value;
     let state = document.getElementById('state').value;
     let title = document.getElementById('title').value;
-    console.log(message);
-    console.log(state);
 
     if(state !== 'null') {
         notificationAlert(title, message, state);
@@ -210,7 +208,6 @@
 
     var channel = pusher.subscribe('diagnosis');
     channel.bind('diagnosis-added', function(data) {
-        console.log(data)
         title = 'Diagnosis Success';
         state = 'primary';
         message = `
@@ -222,8 +219,6 @@
     });
 
     channel.bind('diagnosiscf-added', function(data) {
-        console.log(data)
-        console.log(data)
         title = 'Diagnosis Success';
         state = 'primary';
         message = `

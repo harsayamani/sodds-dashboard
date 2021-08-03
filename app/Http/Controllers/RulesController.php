@@ -14,6 +14,7 @@ class RulesController extends Controller
         }
 
         $rulesds = Curl::to('https://sodds-app.herokuapp.com/api/v1/rule/get-all-rule')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -24,6 +25,7 @@ class RulesController extends Controller
         }
 
         $evidences = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/get-all-evidence')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -34,6 +36,7 @@ class RulesController extends Controller
         }
 
         $diseases = Curl::to('https://sodds-app.herokuapp.com/api/v1/disease/get-all-disease')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -52,6 +55,7 @@ class RulesController extends Controller
         }
 
         $rulescf = Curl::to('https://sodds-app.herokuapp.com/api/v1/rulecf/get-all-rule')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -62,6 +66,7 @@ class RulesController extends Controller
         }
 
         $evidences = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/get-all-evidence')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -72,6 +77,7 @@ class RulesController extends Controller
         }
 
         $diseases = Curl::to('https://sodds-app.herokuapp.com/api/v1/disease/get-all-disease')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -82,6 +88,7 @@ class RulesController extends Controller
         }
 
         $cfvalues = Curl::to('https://sodds-app.herokuapp.com/api/v1/certainty-value/get-all-certainty')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->get();
 
@@ -110,6 +117,7 @@ class RulesController extends Controller
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/rule/add')
         ->withData( ['evcode' => $evcode, 'discode' => $discode, 'belief' => floatval($belief)] )
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->post();
 
@@ -137,6 +145,7 @@ class RulesController extends Controller
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/rule/update/'.$id)
         ->withData( ['evcode' => $evcode, 'discode' => $discode, 'belief' => floatval($belief)] )
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->put();
 
@@ -156,6 +165,7 @@ class RulesController extends Controller
         $id = $request->id;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/rule/delete/'.$id)
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->delete();
 
@@ -177,6 +187,7 @@ class RulesController extends Controller
         $cfvalcode = $request->cfvalcode;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/rulecf/add')
+        ->withOption('USERPWD', 'sodds:12345678')
         ->withData( ['evcode' => $evcode, 'discode' => $discode, 'cfvalcode' => $cfvalcode] )
         ->asJson()
         ->post();
@@ -199,6 +210,7 @@ class RulesController extends Controller
         $cfvalcode = $request->cfvalcode;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/rulecf/update/'.$id)
+        ->withOption('USERPWD', 'sodds:12345678')
         ->withData( ['evcode' => $evcode, 'discode' => $discode, 'cfvalcode' => $cfvalcode] )
         ->asJson()
         ->put();
@@ -219,6 +231,7 @@ class RulesController extends Controller
         $id = $request->id;
 
         $result = Curl::to('https://sodds-app.herokuapp.com/api/v1/rulecf/delete/'.$id)
+        ->withOption('USERPWD', 'sodds:12345678')
         ->asJson()
         ->delete();
 

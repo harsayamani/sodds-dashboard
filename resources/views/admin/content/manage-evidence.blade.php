@@ -215,11 +215,16 @@
 
 <script>
     axios.get(
-			BASE_URL+'/api/v1/evidence/get-all-evidence'
+			BASE_URL+'/api/v1/evidence/get-all-evidence',
+            {
+                auth: {
+                    username: 'sodds',
+                    password: '12345678',
+                },
+            }
 		).then((response)=>{
 			let evidences = response.data.data;
 			let x = 0;
-            console.log(evidences);
 
 			for(let i=0; i<evidences.length; i++) {
 				x++;

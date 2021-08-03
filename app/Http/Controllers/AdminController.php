@@ -55,8 +55,35 @@ class AdminController extends Controller
         }else{
             Session::forget('loginAdmin');
             Session::forget('username');
+            Session::forget('name');
             return redirect('/admin/login')->with('alert-danger', 'Logout success!');
         }
+    }
+
+    //Account settings
+    public function accountSettings(){
+        if(! Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert-danger', 'You must login firstly!');
+        }
+
+        $currentName = Session::get('name');
+        return \view('admin.content.account-settings', compact('currentName'));
+    }
+
+    public function accountSettingsUpdate(Request $request){
+        if(! Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert-danger', 'You must login firstly!');
+        }
+
+        $username = Session::get('username');
+        $name = $request->name;
+        $admin = Admin::find($username);
+        $admin->name = $name;
+        if($admin->save()){
+            Session::put('name', $name);
+            return redirect()->back()->with('alert-success', 'Update account success!');
+        }
+        return redirect()->back()->with('alert-danger', 'Update account fail!');
     }
 
     //Change password
@@ -110,6 +137,7 @@ class AdminController extends Controller
             return redirect('/admin/login')->with('alert-danger', 'You must login firstly!');
         }else{
             $evidences = Curl::to('https://sodds-app.herokuapp.com/api/v1/evidence/get-all-evidence')
+            ->withOption('USERPWD', 'sodds:12345678')
             ->asJson()
             ->get();
 
@@ -120,6 +148,7 @@ class AdminController extends Controller
             }
 
             $diseases = Curl::to('https://sodds-app.herokuapp.com/api/v1/disease/get-all-disease')
+            ->withOption('USERPWD', 'sodds:12345678')
             ->asJson()
             ->get();
 
@@ -130,6 +159,7 @@ class AdminController extends Controller
             }
 
             $diagds = Curl::to('https://sodds-app.herokuapp.com/api/v1/diagnosys/get-all-diagds')
+            ->withOption('USERPWD', 'sodds:12345678')
             ->asJson()
             ->get();
 
@@ -140,6 +170,7 @@ class AdminController extends Controller
             }
 
             $diagcf = Curl::to('https://sodds-app.herokuapp.com/api/v1/diagnosys/get-all-diagcf')
+            ->withOption('USERPWD', 'sodds:12345678')
             ->asJson()
             ->get();
 
