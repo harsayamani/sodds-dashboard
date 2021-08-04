@@ -460,27 +460,15 @@
                 let disposTable = $('#dispos_table');
 
                 for(let k=0; k<hipo.length; k++){
-                    $.ajax({
-                        url: "/admin/disease/get-disease",
-                        type:"POST",
-                        data : {
-                            "_token": "{{ csrf_token() }}",
-                            "discode": hipo[k].discode
-                        },
-                        dataType: "json",
-                        success: function(resp){
-                            console.log(resp);
-                            let html = `
-                                <tr>
-                                    <td>${hipo[k].discode}</td>
-                                    <td>${resp.data.disease}</td>
-                                    <td>${hipo[k].cf_persen}</td>
-                                </tr>
-                            `
+                    let html = `
+                        <tr>
+                            <td>${hipo[k].discode}</td>
+                            <td>${hipo[k].disease}</td>
+                            <td>${hipo[k].cf_persen}</td>
+                        </tr>
+                    `
 
-                            disposTable.append(html);
-                        }
-                    });
+                    disposTable.append(html);
                 }
             }
         });
