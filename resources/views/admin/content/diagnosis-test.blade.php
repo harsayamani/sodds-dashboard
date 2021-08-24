@@ -46,7 +46,7 @@
                                         @foreach($evidences as $key => $evidence)
                                         <tr>
                                             {{-- <td>{{$evidence->code}}</td> --}}
-                                            <td>{{$evidence->evidence}}</td>
+                                            <td>{{$evidence->evidence}} ({{$evidence->code}})</td>
                                             <td>
                                                 <div class="form-check">
                                                     <label class="form-check-label">
@@ -66,13 +66,13 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card">
+                        <div class="card" id="diagnosis_result_card" style="visibility: hidden">
                             <div class="card-header">
                                 <h4 class="card-title">Diagnosis</h4>
                                 <p class="card-category">Result</p>
                             </div>
                             <div class="card-body">
-                                <div id="diag_result"><center><h4>Nan</h4></center></div>
+                                <div id="diag_result"></div>
                             </div>
                         </div>
                         <div class="card" id="card_confidence" style="visibility: hidden">
@@ -138,7 +138,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{$evidence->evidence}}</td>
+                                            <td>{{$evidence->evidence}} ({{$evidence->code}})</td>
                                             <td class="text-center">
                                                 <div class="form-check">
                                                     <label class="form-radio-label">
@@ -178,23 +178,22 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card" id="diagnosis_result_card2" style="visibility: hidden">
                             <div class="card-header">
                                 <h4 class="card-title">Diagnosis</h4>
                                 <p class="card-category">Result</p>
                             </div>
                             <div class="card-body">
-                                <div id="diag_result2"><center><h4>Nan</h4></center></div>
+                                <div id="diag_result2"></div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card" id="diagnosis_posibility_card2" style="visibility: hidden">
                             <div class="card-header">
                                 <h4 class="card-title">Diagnosis</h4>
                                 <p class="card-category">Disease Posiibility</p>
                             </div>
                             <div class="card-body">
                                 <div id="disease_pos">
-                                    <center><h4>Nan</h4></center>
                                 </div>
                             </div>
                         </div>
@@ -219,9 +218,12 @@
         let submitConfidence = document.getElementById('submit_confidence');
         let cardConfidence = document.getElementById('card_confidence');
         let confidenceLevel = $('#confidence_level');
+        let diagnosisResultCard = document.getElementById('diagnosis_result_card');
         let len = evidences.length
         let arrEvidence = [];
         let a = 0;
+
+        diagnosisResultCard.style.visibility = "visible";
 
         window.scrollTo(0,0);
         let loader = `<center><div class="loader"></div></center>`;
@@ -388,9 +390,15 @@
         let evidences = document.getElementsByName('evidences2[]');
         let diagResult = document.getElementById('diag_result2');
         let dispos = document.getElementById('disease_pos');
+        let diagnosisResultCard = document.getElementById('diagnosis_result_card2');
+        let diagnosisPosibilityCard = document.getElementById('diagnosis_posibility_card2');
         let arrEvidences = [];
         let usercfs = [];
         let a = 0;
+
+        diagnosisResultCard.style.visibility = "visible";
+        diagnosisPosibilityCard.style.visibility = "visible";
+
         let loader = `<center><div class="loader"></div></center>`;
         diagResult.innerHTML = loader;
         dispos.innerHTML = loader;
